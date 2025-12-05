@@ -10,6 +10,7 @@ public class BrickManager : MonoBehaviour
     public Material colorRed;
     public Material colorGray;
     public static BrickManager Instance;
+    public GameObject hitSparks;
 
     [Header("Brick Spawning Settings")]
     public GameObject brickPrefab;
@@ -19,8 +20,8 @@ public class BrickManager : MonoBehaviour
     public float xStep = 2.01f;
     public float yHalfOffset = 0.6f;
 
-    public int fullRowCount = 12; // Number of bricks in a full row
-    public int secondRowCount = 11;
+    public int evenRowCount = 12; // Number of bricks in even row
+    public int oddRowCount = 11; // Number of bricks in odd row 
 
     private void Awake()
     {
@@ -38,6 +39,8 @@ public class BrickManager : MonoBehaviour
     {
         SpawnBricks();
     }
+
+    // Spawns brick in game area
     void SpawnBricks()
     {
         // Y vector decreasing after each line
@@ -45,21 +48,23 @@ public class BrickManager : MonoBehaviour
 
         for (int pair = 0; pair < rows / 2; pair++)
         {
-            // 1) Rz¹d pe³ny (11 cegie³), od startPos.x w prawo
-            SpawnRow(fullRowCount, new Vector3(startPos.x, currentY, startPos.z));
+            // Even row spawning
+            SpawnRow(evenRowCount, new Vector3(startPos.x, currentY, startPos.z));
 
-            // 2) Rz¹d przesuniêty w dó³ o 0.6 i X -1.005, z jedn¹ ceg³¹ mniej
             float shiftedY = currentY - yHalfOffset;
-            float shiftedX = startPos.x + xStep / 2f; // 1.005 przy xStep=2.01f
-            SpawnRow(secondRowCount, new Vector3(shiftedX, shiftedY, startPos.z));
+            float shiftedX = startPos.x + xStep / 2f; // Half offset for odd rows
 
-            // Nastêpna para rzêdów ni¿ej o kolejne 1.2 (2 * 0.6)
+            // Odd row spawning
+            SpawnRow(oddRowCount, new Vector3(shiftedX, shiftedY, startPos.z));
+
+            // Next pair of rows
             currentY -= 2f * yHalfOffset;
         }
     }
 
     void SpawnRow(int count, Vector2 rowStart)
     {
+        // Spawning bricks in a single row
         for (int i = 0; i < count; i++)
         {
             float x = rowStart.x + i * xStep;

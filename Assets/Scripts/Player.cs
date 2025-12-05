@@ -5,6 +5,7 @@ using UnityEngine.Windows;
 public class Player : MonoBehaviour
 {
     public int points = 0;
+    public int maximumShots = 30;
     public int shotsLeft = 30;
 
     public InputActionReference lookAction;
@@ -36,32 +37,62 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
+
+    // Initializes ammo and UI at the start of the game
+    public void StartGame()
+    {
+        shotsLeft = maximumShots;
+
+        GameManager.Instance.ammoPanel.SetActive(true);
+        GameManager.Instance.ammoCounter.color = Color.white;
+        GameManager.Instance.ammoCounter.text = shotsLeft.ToString();
+
+    }
     void Update()
-    {  
-        // Odczyt osi z Look (x z Vector2)
+    {
+        // Read look input
         if (lookAction != null)
         {
             Vector2 look = lookAction.action.ReadValue<Vector2>();
             inputX = look.x;
         }
 
-        // Obrót działa
+        // Cannon rotation
         currentAngle += inputX * rotationSpeed * Time.deltaTime;
         currentAngle = Mathf.Clamp(currentAngle, -maxAngle, maxAngle);
-        turret.localRotation = Quaternion.Euler(0f,0f, currentAngle);
+        turret.localRotation = Quaternion.Euler(0f, 0f, currentAngle);
 
-        // Strzał – przycisk Shoot
+        // Fire action
         if (fireAction != null && fireAction.action.WasPerformedThisFrame())
         {
             Shoot();
         }
     }
+
+
+    // Shoots a ball if ammo is available
     void Shoot()
     {
+        if (shotsLeft <= 0) return;
         var bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
+
+        // Applies ball layer to avoid self-collision
+        int bulletLayer = LayerMask.NameToLayer("Ball");
+        bullet.layer = bulletLayer;
+
+        // Applies force to the ball
         var rb = bullet.GetComponent<Rigidbody>();
         Vector3 dir = muzzle.forward;
-        rb.linearVelocity = dir * force; 
+        rb.linearVelocity = dir * force;
+        shotsLeft--;
+
+        // Update ammo UI
+        GameManager.Instance.ammoCounter.text = shotsLeft.ToString();
+        if (shotsLeft <= 0) GameManager.Instance.ammoCounter.color = Color.red;
     }
 
 }
