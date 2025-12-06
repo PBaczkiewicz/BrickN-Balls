@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -45,12 +45,16 @@ public class Player : MonoBehaviour
     // Initializes ammo and UI at the start of the game
     public void StartGame()
     {
+        if (!SceneManager.GetSceneByName("UIScene").isLoaded)
+        {
+            SceneManager.LoadScene("UIScene", LoadSceneMode.Single);
+            return;
+        }
         shotsLeft = maximumShots;
 
         GameManager.Instance.ammoPanel.SetActive(true);
         GameManager.Instance.ammoCounter.color = Color.white;
         GameManager.Instance.ammoCounter.text = shotsLeft.ToString();
-
     }
     void Update()
     {
@@ -79,7 +83,7 @@ public class Player : MonoBehaviour
     {
         if (shotsLeft <= 0) return;
         var bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
-
+        bullet.GetComponent<BulletBounce>().sbl = new Vector3(bullet.transform.position.x, bullet.transform.position.y, bullet.transform.position.z);
         // Applies ball layer to avoid self-collision
         int bulletLayer = LayerMask.NameToLayer("Ball");
         bullet.layer = bulletLayer;

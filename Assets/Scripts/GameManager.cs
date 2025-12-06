@@ -1,15 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public PlayerInput playerInput;
     [Header("Start menu")]
     public Button startButton;
     public GameObject startMenu;
+    public InputActionReference exitAction;
 
     [Header("Game over menu")]
     public GameObject gameOverMenu;
@@ -39,6 +41,13 @@ public class GameManager : MonoBehaviour
         returnButton.onClick.AddListener(RestartGame);
         gameOverMenu.SetActive(false);
         ammoPanel.SetActive(false);
+    }
+    private void Update()
+    {
+        if (exitAction != null && exitAction.action.WasPerformedThisFrame())
+        {
+            Application.Quit();
+        }
     }
 
     void StartGame()

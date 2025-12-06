@@ -1,7 +1,4 @@
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
-using UnityEngine.Rendering;
 
 public class BrickManager : MonoBehaviour
 {

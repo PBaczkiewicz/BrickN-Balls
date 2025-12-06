@@ -7,6 +7,11 @@ TagManager:
   - Ball
   - OutOfBounds
   - Brick
+  - TopWall
+  - LeftWall
+  - RightWall
+  - BottomWall
+  - Platform
   layers:
   - Default
   - TransparentFX
