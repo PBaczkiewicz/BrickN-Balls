@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5394157304860530067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6121268504965678413}
+  - component: {fileID: 7503533083331084751}
+  m_Layer: 0
+  m_Name: BricksContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6121268504965678413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394157304860530067}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: -5.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7503533083331084751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394157304860530067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd8a85ea5e95374396442c8f7fc188f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  colorGreen: {fileID: 2100000, guid: 672e5f598df573e4fb009312f2e14e78, type: 2}
+  colorYellow: {fileID: 2100000, guid: 2e3322fa44826bf4e9bf55f6aaaf1412, type: 2}
+  colorRed: {fileID: 2100000, guid: 1c1098567799ba04c9be8b6960aadbe1, type: 2}
+  colorGray: {fileID: 2100000, guid: b7dcfcc4a5855b14fa70bb37d1b0536e, type: 2}
+  hitSparks: {fileID: 5126242517638704195, guid: efe4b1b5392cfb1479875f438bd04adf, type: 3}
+  brickPrefab: {fileID: 7520749640893587533, guid: 2439689fa01dcc74db6eddeade500bbf, type: 3}
+  brickContainer: {fileID: 5394157304860530067}
+  startPos: {x: 11.56, y: 13, z: -5.8}
+  rows: 12
+  xStep: -2.01
+  yHalfOffset: 0.6
+  evenRowCount: 12
+  oddRowCount: 11

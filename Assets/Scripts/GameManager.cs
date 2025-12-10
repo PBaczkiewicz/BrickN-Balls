@@ -13,14 +13,6 @@ public class GameManager : MonoBehaviour
     public GameObject startMenu;
     public InputActionReference exitAction;
 
-    [Header("Game over menu")]
-    public GameObject gameOverMenu;
-    public Button returnButton;
-    public TextMeshProUGUI finalScoreText;
-
-    [Header("Player UI")]
-    public GameObject ammoPanel;
-    public TextMeshProUGUI ammoCounter;
 
     private void Awake()
     {
@@ -38,9 +30,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         startButton.onClick.AddListener(StartGame);
-        returnButton.onClick.AddListener(RestartGame);
-        gameOverMenu.SetActive(false);
-        ammoPanel.SetActive(false);
+    }
+    void StartGame()
+    {
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+
     }
     private void Update()
     {
@@ -50,24 +44,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void StartGame()
-    {
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Additive);
-        startMenu.SetActive(false);
-    }
+    
 
-    public void GameOver()
-    {
-        Debug.Log("Game over");
-        gameOverMenu.SetActive(true);
-        finalScoreText.text = "Final Score: " + Player.Instance.points.ToString();
-    }
 
-    void RestartGame()
-    {
-        ammoPanel.SetActive(false);
-        gameOverMenu.SetActive(false);
-        SceneManager.UnloadSceneAsync("GameScene");
-        startMenu.SetActive(true);
-    }
 }

@@ -1,12 +1,16 @@
+using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BrickManager : MonoBehaviour
 {
+    public static BrickManager Instance;
+    [Header("Brick Materials")]
     public Material colorGreen;
     public Material colorYellow;
     public Material colorRed;
     public Material colorGray;
-    public static BrickManager Instance;
+    [Header("Hit Sparks Effect")]
     public GameObject hitSparks;
 
     [Header("Brick Spawning Settings")]
@@ -20,6 +24,9 @@ public class BrickManager : MonoBehaviour
     public int evenRowCount = 12; // Number of bricks in even row
     public int oddRowCount = 11; // Number of bricks in odd row 
 
+    [Header("Visual brick settings")]
+    public GameObject brickVisualPrefab;
+
     private void Awake()
     {
         if (Instance == null)
@@ -32,41 +39,17 @@ public class BrickManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    // Spawns a visual brick GameObject that follows the given ECS brick entity
+    public void SpawnVisualBrick(Entity brickEntity, float3 pos, quaternion rot)
     {
-        SpawnBricks();
-    }
+        if (brickVisualPrefab == null) return;
 
-    // Spawns brick in game area
-    void SpawnBricks()
-    {
-        // Y vector decreasing after each line
-        float currentY = startPos.y;
-
-        for (int pair = 0; pair < rows / 2; pair++)
+        var go = Instantiate(brickVisualPrefab, pos, rot);
+        go.GetComponent<BrickBridge>().Init(brickEntity);
+        var follower = go.GetComponent<EntityFollower>();
+        if (follower != null)
         {
-            // Even row spawning
-            SpawnRow(evenRowCount, new Vector3(startPos.x, currentY, startPos.z));
-
-            float shiftedY = currentY - yHalfOffset;
-            float shiftedX = startPos.x + xStep / 2f; // Half offset for odd rows
-
-            // Odd row spawning
-            SpawnRow(oddRowCount, new Vector3(shiftedX, shiftedY, startPos.z));
-
-            // Next pair of rows
-            currentY -= 2f * yHalfOffset;
-        }
-    }
-
-    void SpawnRow(int count, Vector2 rowStart)
-    {
-        // Spawning bricks in a single row
-        for (int i = 0; i < count; i++)
-        {
-            float x = rowStart.x + i * xStep;
-            Vector3 pos = new Vector3(x, rowStart.y, startPos.z);
-            Instantiate(brickPrefab, pos, Quaternion.identity, brickContainer.transform);
+            follower.Init(brickEntity);
         }
     }
 

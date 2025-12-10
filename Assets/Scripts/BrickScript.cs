@@ -1,3 +1,5 @@
+using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 public class BrickScript : MonoBehaviour
@@ -8,36 +10,40 @@ public class BrickScript : MonoBehaviour
     BrickManager brickManager;
 
     [Header("Destruction Animation Settings")]
-    public float fallTime = 2f;          
-    public float randomForce = 2f;       
-    public float randomTorque = 50f;     
+    public float fallTime = 2f;
+    public float randomForce = 2f;
+    public float randomTorque = 50f;
 
     private void Start()
     {
         currentHp = maxHp;
         brickManager = BrickManager.Instance;
+        SetColor();
     }
 
-
-    // Reduces HP on hit, sets color and triggers destruction if HP reaches 0
-    private void OnCollisionEnter(Collision collision)
+    public void OnHit(int hits)
     {
-        if (collision.gameObject.CompareTag("Ball"))
-        {
-            Player.Instance.points++;
-            currentHp--;
-            SetColor();
 
-            if (currentHp <= 0)
-            {
-                AnimateDestroy();
-            }
+        Player.Instance.points += hits;
+        currentHp -= hits;
+        SetColor();
+
+        if (currentHp <= 0)
+        {
+            AnimateDestroy();
+        }
+        if (BrickManager.Instance.hitSparks != null)
+        {
+            var fx = Instantiate(BrickManager.Instance.hitSparks, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(fx, 0.5f);
         }
     }
 
+
     // Triggers destruction animation and removes brick from the scene
-    void AnimateDestroy()
+    public void AnimateDestroy()
     {
+        SetColor(true);
         Rigidbody rb = GetComponent<Rigidbody>();
         Collider col = GetComponent<Collider>();
         rb.constraints = RigidbodyConstraints.None;
@@ -49,7 +55,7 @@ public class BrickScript : MonoBehaviour
         // Enable gravity and disable kinematic
         rb.useGravity = true;
         rb.isKinematic = false;
-        
+
         // Randomize fall animation
         Vector3 dir = new Vector3(
             Random.Range(-0.5f, 0.5f),
@@ -67,8 +73,13 @@ public class BrickScript : MonoBehaviour
 
 
     // Change material based on current HP
-    void SetColor()
+    void SetColor(bool destroyed = false)
     {
+        if (destroyed)
+        {
+            GetComponentInChildren<Renderer>().material = brickManager.colorGray;
+            return;
+        }
         switch (currentHp)
         {
             case 3:
@@ -85,5 +96,25 @@ public class BrickScript : MonoBehaviour
                 break;
 
         }
+    }
+}
+
+public static class EcsHelpers
+{
+    public static bool TryGetEntityPosition(Entity e, out Vector3 pos)
+    {
+        pos = default;
+
+        var world = World.DefaultGameObjectInjectionWorld;
+        if (world == null || !world.IsCreated)
+            return false;
+
+        var em = world.EntityManager;
+        if (!em.Exists(e) || !em.HasComponent<LocalTransform>(e))
+            return false;
+
+        var lt = em.GetComponentData<LocalTransform>(e);
+        pos = (Vector3)lt.Position;
+        return true;
     }
 }
