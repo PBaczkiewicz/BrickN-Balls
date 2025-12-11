@@ -21,9 +21,9 @@ public class BrickScript : MonoBehaviour
         SetColor();
     }
 
+    // Called when the brick is hit by a ball
     public void OnHit(int hits)
     {
-
         Player.Instance.points += hits;
         currentHp -= hits;
         SetColor();
@@ -77,6 +77,7 @@ public class BrickScript : MonoBehaviour
     {
         if (destroyed)
         {
+            Player.Instance.points++; // if forced destroy, add 1 point
             GetComponentInChildren<Renderer>().material = brickManager.colorGray;
             return;
         }
@@ -96,25 +97,5 @@ public class BrickScript : MonoBehaviour
                 break;
 
         }
-    }
-}
-
-public static class EcsHelpers
-{
-    public static bool TryGetEntityPosition(Entity e, out Vector3 pos)
-    {
-        pos = default;
-
-        var world = World.DefaultGameObjectInjectionWorld;
-        if (world == null || !world.IsCreated)
-            return false;
-
-        var em = world.EntityManager;
-        if (!em.Exists(e) || !em.HasComponent<LocalTransform>(e))
-            return false;
-
-        var lt = em.GetComponentData<LocalTransform>(e);
-        pos = (Vector3)lt.Position;
-        return true;
     }
 }

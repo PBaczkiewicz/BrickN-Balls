@@ -1516,6 +1516,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1821067067}
     - target: {fileID: 7648075329353378225, guid: 0408039bf5e5dc041b8aa2469cbe9dba, type: 3}
+      propertyPath: maximumShots
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648075329353378225, guid: 0408039bf5e5dc041b8aa2469cbe9dba, type: 3}
       propertyPath: rotationSpeed
       value: 120
       objectReference: {fileID: 0}

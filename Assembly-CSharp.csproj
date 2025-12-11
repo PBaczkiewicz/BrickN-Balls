@@ -82,12 +82,11 @@
     <Compile Include="Assets\Scripts\ECS\BallTagAuthoring.cs" />
     <Compile Include="Assets\Scripts\BrickManager.cs" />
     <Compile Include="Assets\Scripts\ECS\BrickGridSpawnerAuthoring.cs" />
-    <Compile Include="Assets\Scripts\ECS\EntityFollower.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\ECS\BallSpawnerAuthoring.cs" />
     <Compile Include="Assets\Scripts\ECS\BrickFollower.cs" />
-    <Compile Include="Assets\Scripts\BulletBounce.cs" />
     <Compile Include="Assets\Scripts\BrickScript.cs" />
+    <Compile Include="Assets\Scripts\ECS\BallFollower.cs" />
     <Compile Include="Assets\Scripts\ECS\Systems\BrickGridSpawnSystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\ECS\Systems\BallBrickCollisionSystem.cs" />

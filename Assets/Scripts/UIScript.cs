@@ -21,7 +21,6 @@ public class UIScript : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -34,9 +33,9 @@ public class UIScript : MonoBehaviour
         returnButton.onClick.AddListener(RestartGame);
         gameOverMenu.SetActive(false);
         ammoPanel.SetActive(true);
+        ammoCounter.text = Player.Instance.shotsLeft.ToString();
     }
 
-    
 
     public void GameOver()
     {
@@ -49,6 +48,7 @@ public class UIScript : MonoBehaviour
     {
         ammoPanel.SetActive(false);
         gameOverMenu.SetActive(false);
-        SceneManager.UnloadSceneAsync("GameScene");
+
+        SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
     }
 }

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8190962806707702505}
   - component: {fileID: 2858016141504725762}
   - component: {fileID: 6678356415617607736}
-  - component: {fileID: 2978039629304430546}
   - component: {fileID: -2275090685376064204}
   - component: {fileID: 8014174587082577203}
+  - component: {fileID: 2597856896540679633}
   m_Layer: 6
   m_Name: BallVisual
   m_TagString: Ball
@@ -92,18 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2978039629304430546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3958635527080846325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0809968f540114bb05cbb8ce4e6640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityFollower
 --- !u!135 &-2275090685376064204
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -152,3 +140,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2597856896540679633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3958635527080846325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec7ef39679f5e247808db987274dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallFollower

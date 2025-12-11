@@ -21,8 +21,7 @@ public partial struct BrickGridSpawnSystem : ISystem
 
         var spawnerQuery = SystemAPI.QueryBuilder().WithAll<BrickGridSpawner>().Build();
 
-        if (spawnerQuery.CalculateEntityCount() == 0)
-            return;
+        if (spawnerQuery.CalculateEntityCount() == 0) return;
 
         var spawnerEntity = spawnerQuery.GetSingletonEntity();
         var data = em.GetComponentData<BrickGridSpawner>(spawnerEntity);

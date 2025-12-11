@@ -7,6 +7,7 @@ public class BrickTagAuthoring : MonoBehaviour
     {
         public override void Bake(BrickTagAuthoring authoring)
         {
+            // Creating Brick entity with BrickTag, BrickHitEvent and BrickHealth components
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<BrickTag>(entity);
             AddComponent<BrickHitEvent>(entity);

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BrickGridSpawnerAuthoring : MonoBehaviour
 {
-    [Header("Brick Spawning Settings")]
+    [Header("Brick spawning settings")]
     public GameObject brickPrefab;
 
-    [Header("Grid Settings")]
+    [Header("Brick grid settings")]
     public Vector3 startPos = new Vector3(-10.45f, 13f, -5.8f);
     public int rows = 12;
     public float xStep = 2.01f;

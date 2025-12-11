@@ -6,7 +6,6 @@ using Unity.Physics;
 using Unity.Properties;
 using UnityEngine;
 
-//[DisableAutoCreation]
 [BurstCompile]
 public partial struct BallInitialization : ISystem
 {
@@ -14,6 +13,7 @@ public partial struct BallInitialization : ISystem
 
     public void OnUpdate(ref SystemState state)
     {
+        // Set ball speed
         foreach (var (velocity, speed) in
                  SystemAPI.Query<RefRW<PhysicsVelocity>, RefRO<BallSpeed>>()
                           .WithAll<BallTag>())
@@ -21,9 +21,7 @@ public partial struct BallInitialization : ISystem
             float3 v = velocity.ValueRO.Linear;
             float lenSq = math.lengthsq(v);
 
-            // jeœli prawie zero, nic nie rób (np. kula jeszcze nie wystartowa³a)
-            if (lenSq < 0.0001f)
-                continue;
+            if (lenSq < 0.0001f) continue;
 
             float len = math.sqrt(lenSq);
             float3 dir = v / len;

@@ -9,13 +9,11 @@ public class BrickFollower : MonoBehaviour
     {
         // Initialize with the given entity
         var world = World.DefaultGameObjectInjectionWorld;
-        if (world == null || !world.IsCreated)
-            return;
+        if (world == null || !world.IsCreated) return;
 
         var em = world.EntityManager;
 
-        if (!em.Exists(entity))
-            return;
+        if (!em.Exists(entity)) return;
 
         // Set position and rotation of visual object based on LocalTransform component of ECS entity
         if (em.HasComponent<LocalTransform>(entity))

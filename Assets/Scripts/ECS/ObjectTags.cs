@@ -8,11 +8,10 @@ public struct BrickTag : IComponentData { }
 public struct BallPrefabComponent : IComponentData { public Entity Value; }
 public struct BallSpeed : IComponentData { public float Value; }
 public struct KillZoneTag : IComponentData { }
-public struct BrickToDestroy : IComponentData { }
 
 
 // Components with data
-
+//
 // Spawner for bricks in a grid pattern
 public struct BrickGridSpawner : IComponentData
 {

@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class BallTagAuthoring : MonoBehaviour
 {
-    // Speed of the ball
-    public float speed = 20f;
+    public float ballSpeed = 20f;
     class BallTagBaker : Baker<BallTagAuthoring>
     {
         public override void Bake(BallTagAuthoring authoring)
@@ -12,7 +11,7 @@ public class BallTagAuthoring : MonoBehaviour
             UnityEngine.Debug.Log($"BAKE BallTag for {authoring.gameObject.name}");
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<BallTag>(entity);
-            AddComponent(entity, new BallSpeed { Value = authoring.speed });
+            AddComponent(entity, new BallSpeed { Value = authoring.ballSpeed });
         }
     }
 }

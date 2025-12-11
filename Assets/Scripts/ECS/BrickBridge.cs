@@ -7,7 +7,7 @@ public class BrickBridge : MonoBehaviour
     EntityManager _em;
     Entity _entity;
     bool _hasEntity;
-    BrickScript brickScript;
+    BrickScript brickScript; // for invoking sparks fx and destroy animation
 
     public void Init(Entity entity)
     {
@@ -22,8 +22,7 @@ public class BrickBridge : MonoBehaviour
         // If entity stoppes existing, trigger destroy animation on visual object
         if (!_hasEntity || !_em.Exists(_entity))
         {
-            if (_hasEntity)
-                brickScript.AnimateDestroy();
+            if (_hasEntity) brickScript.AnimateDestroy();
             _hasEntity = false;
             return;
         }
