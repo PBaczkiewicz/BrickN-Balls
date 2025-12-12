@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 
     public InputActionReference lookAction;
     public InputActionReference fireAction;
+    public InputActionReference returnToMenuAction;
+    public InputActionReference exitAction;
     public static Player Instance;
 
     [Header("Turret settings")]
@@ -97,6 +99,16 @@ public class Player : MonoBehaviour
         if (fireAction != null && fireAction.action.WasPerformedThisFrame())
         {
             Shoot();
+        }
+
+        if (returnToMenuAction != null && returnToMenuAction.action.WasPerformedThisFrame())
+        {
+            SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+        }
+
+        if (exitAction != null && exitAction.action.WasPerformedThisFrame())
+        {
+            Application.Quit();
         }
     }
 
